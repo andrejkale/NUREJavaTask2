@@ -1,5 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +16,12 @@ public class Main {
         String digitalShort;
 
 
-        int n = scanner.nextInt();
+        int n = 0;
+        try {
+            n = scanner.nextInt();
+        } catch (NumberFormatException | InputMismatchException e) {
+            System.out.println("You enter not a number");
+        }
         String[] digits = new String[n];
 
         for (int i = 0; i < digits.length; i++) {
@@ -89,6 +97,18 @@ public class Main {
         , найти первое из них*/
         differentDigits(digits);
 
+        /*8. Среди чисел найти число-палиндром. Если таких чисел больше одного,
+        найти второе.*/
+        printPalindrome(digits);
+
+        System.out.println("Enter a developer last name");
+        String lastName = scanner.next();
+        System.out.println("Developer last name " + lastName);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        LocalDateTime dateGettingTask = LocalDateTime.of(2022, 11, 19, 18, 15);
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("Date and time of getting task " + dateTimeFormatter.format(dateGettingTask));
+        System.out.println("Date and time of passing task " + dateTimeFormatter.format(now));
     }
 
     private static void showLessThanLengthAverage(String [] array){
@@ -193,7 +213,7 @@ public class Main {
     private static boolean isProgression(String st){
         for(int i = 0; i<st.length();i++) {
             for (int j = i+1;j<st.length();j++){
-                if (Character.getNumericValue(st.charAt(i))>Character.getNumericValue(st.charAt(j)))
+                if (Character.getNumericValue(st.charAt(i)) >= Character.getNumericValue(st.charAt(j)))
                     return false;
             }
         }
@@ -203,9 +223,9 @@ public class Main {
     private static void arithmeticProgression(String [] array){
         ArrayList<String> result = new ArrayList();
         String arithmeticProgressionNumber;
-        for(String iterator : array){
-            if (Integer.parseInt(iterator) > 9)
-                result.add(iterator);
+        for(String element : array){
+            if (Integer.parseInt(element) > 9)
+                result.add(element);
         }
         for(String element: result){
             if(isProgression(element)){
@@ -216,7 +236,7 @@ public class Main {
         }
     }
 
-    public static void differentDigits(String [] array){
+    private static void differentDigits(String [] array){
         ArrayList<String> result = new ArrayList();
         String numberWithUniqueDigitals;
         for(String iterator : array){
@@ -230,5 +250,48 @@ public class Main {
                 System.out.println("Number with unique digits is " + numberWithUniqueDigitals);
                 break;
             }
+    }
+
+    private static boolean isPalindrome(String number) {
+        if (Integer.parseInt(number) == reverseInt(number)) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private static int reverseInt(String number) {
+        int reverseInt = 0;
+        int parsedNumber = Integer.parseInt(number);
+
+        while (parsedNumber != 0) {
+            reverseInt = reverseInt*10 + parsedNumber % 10;
+            parsedNumber /= 10;
+        }
+
+        return reverseInt;
+    }
+
+    private static String stringResult(int countResult, int result) {
+        if (countResult == 0) {
+            return "Non palindrome number";
+        }else {
+            return "Palindrome = " + result;
+        }
+    }
+
+    private static void printPalindrome(String [] Array) {
+        int countResult = 0;
+        int result = 0;
+        for (String element: Array) {
+            if (isPalindrome(element)) {
+                if (countResult < 2) {
+                    result = Integer.parseInt(element);
+                    countResult++;
+                }
+            }
+        }
+        System.out.println(stringResult(countResult, result));
+
     }
 }
