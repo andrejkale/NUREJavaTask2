@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/**
+ * @author Andrii Kalie
+ * */
 public class Main {
     public static void main(String[] args) {
-        /*Ввести n чисел с консоли.
+        /**Ввести n чисел с консоли.
         1. Найти самое короткое и самое длинное число. Вывести найденные числа
         и их длину*/
         System.out.println("Enter a number \"n\" of digits");
@@ -19,8 +21,9 @@ public class Main {
         int n = 0;
         try {
             n = scanner.nextInt();
-        } catch (NumberFormatException | InputMismatchException e) {
+        } catch (InputMismatchException e) {
             System.out.println("You enter not a number");
+            return;
         }
         String[] digits = new String[n];
 
@@ -54,7 +57,7 @@ public class Main {
         System.out.println("Short digital = " + digitalShort + " and length = " + min);
         System.out.println("Long digital = " + digitalLong  + " and length = " + max);
 
-        /* 2. Упорядочить и вывести числа в порядке возрастания (убывания) значений
+        /** 2. Упорядочить и вывести числа в порядке возрастания (убывания) значений
         их длины.*/
         for(int i = 1; i < digits.length; i++) { // sort by desc
             String temp = digits[i];
@@ -76,30 +79,34 @@ public class Main {
         }
         System.out.println("Array string sorted by Descending order " + Arrays.toString(digits));
 
-        /*3. Вывести на консоль те числа, длина которых меньше (больше) средней,
+        /**3. Вывести на консоль те числа, длина которых меньше (больше) средней,
         а также длину*/
         showLessThanLengthAverage(digits);
         showMoreThanLengthAverage(digits);
 
-        /*4. Найти число, в котором число различных цифр минимально. Если таких
+        /**4. Найти число, в котором число различных цифр минимально. Если таких
          чисел несколько, найти первое из них.*/
         minDifDigit(digits);
 
-        /*5. Найти количество чисел, содержащих только четные цифры, а среди них —
+        /**5. Найти количество чисел, содержащих только четные цифры, а среди них —
         количество чисел с равным числом четных и нечетных цифр.*/
         equalsEvenOddDigits(digits);
 
-        /*6. Найти число, цифры в котором идут в строгом порядке возрастания. Если
+        /**6. Найти число, цифры в котором идут в строгом порядке возрастания. Если
         таких чисел несколько, найти первое из них.*/
         arithmeticProgression(digits);
 
-        /*7. Найти число, состоящее только из различных цифр. Если таких чисел несколько
+        /**7. Найти число, состоящее только из различных цифр. Если таких чисел несколько
         , найти первое из них*/
         differentDigits(digits);
 
-        /*8. Среди чисел найти число-палиндром. Если таких чисел больше одного,
+        /**8. Среди чисел найти число-палиндром. Если таких чисел больше одного,
         найти второе.*/
         printPalindrome(digits);
+
+        /**9. Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз.*/
+        printMatrix(digits.length);
+
 
         System.out.println("Enter a developer last name");
         String lastName = scanner.next();
@@ -292,6 +299,14 @@ public class Main {
             }
         }
         System.out.println(stringResult(countResult, result));
+    }
 
+    public static void printMatrix(int size){
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                System.out.print(i * size + j + 1 + " ");
+            }
+            System.out.println();
+        }
     }
 }
