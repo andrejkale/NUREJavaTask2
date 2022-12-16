@@ -25,7 +25,13 @@ public class Main {
             System.out.println("You enter not a number");
             return;
         }
-        String[] digits = new String[n];
+        String[] digits = new String[0];
+        try {
+            digits = new String[n];
+        } catch (NegativeArraySizeException e) {
+            System.out.println("Digital can not be negative");
+            return;
+        }
 
         for (int i = 0; i < digits.length; i++) {
             System.out.println("Enter a digits");
@@ -164,8 +170,8 @@ public class Main {
     private static int uniqueNum(String element){
         int[] nums = new int[10]; // counter
         int count=0;
-        for(int i = 0; i < element.length(); i++) {
-            nums[Character.getNumericValue(element.charAt(i))]++;
+        for(int i = 0; i < element.replace("-", "").length(); i++) {
+            nums[Character.getNumericValue(element.replace("-", "").charAt(i))]++;
         }
         for(int i = 0; i < 10; i++) {
             if(nums[i] == 1) count++;
@@ -178,9 +184,9 @@ public class Main {
 
         int min = 11;
         for(String st: array){
-            if(uniqueNum(st)<min){
-                min=uniqueNum(st);
-                numberWithMinDifDigit=st;
+            if(uniqueNum(st) < min){
+                min = uniqueNum(st);
+                numberWithMinDifDigit = st;
             }
         }
         System.out.println("Number with minimal count of unique digit is " + numberWithMinDifDigit);
